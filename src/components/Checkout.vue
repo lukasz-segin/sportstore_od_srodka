@@ -69,7 +69,8 @@
           email: null,
           address: null,
           city: null,
-          zip: null
+          zip: null,
+          shipped: null
         }
       }
     },
