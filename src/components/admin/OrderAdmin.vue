@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="bg-info text-white text-center p-2">Zamówienia</h4>
+    <h4 class="bg-info text-white text-center p-2">Orders</h4>
     <div class="form-group text-center">
       <input class="form-check-input" type="checkbox" v-model="showShipped"/>
       <label class="form-check-label">Pokaż wysłane zamówienia</label>
@@ -23,9 +23,10 @@
         <td>{{ o.id }}</td>
         <td>{{ o.name }}</td>
         <td>{{ `${o.city}, ${o.zip}` }}</td>
-        <td class="text-right">{{ getTotal(o)|currency }}</td>
+        <td class="text-right">{{ getTotal(o) | currency }}</td>
         <td class="text-center">
-          <button class="btn btn-sm btn-danger" v-on:click="shipOrder(o)">
+          <button class="btn btn-sm btn-danger"
+                  v-on:click="shipOrder(o)">
             {{ o.shipped ? 'Nie wysłano':'Wysłano'}}
           </button>
         </td>
@@ -39,8 +40,7 @@
   import {mapState, mapActions, mapMutations} from "vuex";
 
   export default {
-    name: "OrderAdmin",
-    data() {
+    data: function () {
       return {
         showShipped: false
       }
@@ -48,15 +48,17 @@
     computed: {
       ...mapState({orders: state => state.orders.orders}),
       displayOrders() {
-        return this.showShipped ? this.orders : this.orders.filter(o => o.shipped !== true);
+        return this.showShipped ? this.orders
+            : this.orders.filter(o => o.shipped !== true);
       }
     },
     methods: {
       ...mapMutations(["changeOrderShipped"]),
       ...mapActions(["getOrders", "updateOrder"]),
       getTotal(order) {
-        if (order.cartLines !== null && order.cartLines.length > 0) {
-          return order.cartLines.reduce((total, line) => total + (line.quantity * line.product.price), 0)
+        if (order.cartLines != null && order.cartLines.length > 0) {
+          return order.cartLines.reduce((total, line) =>
+              total + (line.quantity * line.product.price), 0)
         } else {
           return 0;
         }
@@ -70,7 +72,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
