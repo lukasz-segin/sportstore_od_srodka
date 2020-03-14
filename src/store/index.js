@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import Axios from "axios";
 import CartModule from "./cart";
-import OrderModule from "./orders";
+import OrdersModule from "./orders";
 import AuthModule from "./auth";
 
 Vue.use(Vuex);
@@ -11,8 +11,8 @@ const productsUrl = `${baseUrl}/products`;
 const categoriesUrl = `${baseUrl}/categories`;
 
 export default new Vuex.Store({
-  strict: true,
-  modules: { cart: CartModule, orders: OrderModule, auth: AuthModule },
+  strict: false,
+  modules: { cart: CartModule, orders: OrdersModule, auth: AuthModule },
   state: {
     categoriesData: [],
     currentPage: 1,
@@ -32,7 +32,7 @@ export default new Vuex.Store({
       "Wszystkie", ...state.categoriesData
     ],
     productById: (state) => (id) => {
-      return state.pages[state.currentPage].find(p => p.id === id);
+      return state.pages[state.currentPage].find(p => p.id == id);
     }
   },
   mutations: {
