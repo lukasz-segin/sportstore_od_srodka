@@ -31,8 +31,8 @@
     components: {ValidationError},
     data () {
       return {
-        username: "admin",
-        password: "secret",
+        username: null,
+        password: null,
         showFailureMessage: false,
       }
     },
